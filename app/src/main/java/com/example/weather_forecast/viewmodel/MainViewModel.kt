@@ -20,9 +20,23 @@ class MainViewModel(
         liveDataToObserve.value = AppState.Loading
         Thread{
             sleep(2000)
-            liveDataToObserve.postValue(
-                AppState.Success(repoImpl.getWeatherFromLocalStorage())
-            )
+            val randNumber = (1..3).random()
+            when(randNumber) {
+                1 -> {
+                    liveDataToObserve.postValue(
+                        AppState.Success(repoImpl.getWeatherFromLocalStorage()))
+                }
+                2 -> {
+                    liveDataToObserve.postValue(
+                        AppState.Error(Exception("Ошибка связи с сервером"))
+                    )
+                }
+                3 -> {
+                    liveDataToObserve.postValue(
+                        AppState.Loading
+                    )
+                }
+            }
         }.start()
     }
 
