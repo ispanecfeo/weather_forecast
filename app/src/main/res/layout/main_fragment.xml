@@ -1,20 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.MainFragment">
+    android:background="@drawable/gradient_background"
+    android:orientation="vertical"
+    tools:context=".view.MainFragment">
 
     <TextView
-        android:id="@+id/message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MainFragment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/cityName"
+        android:textSize="@dimen/city_text_size"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:text="@string/start_city"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/temperatureValue"
+        android:layout_width="wrap_content"
+        android:layout_height="7dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:text="@string/degree_zero"
+        android:textColor="@color/white"
+        android:textSize="@dimen/degree_size"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/temperatureConditional"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:layout_weight="4"
+        android:textSize="@dimen/conditional_size"
+        android:text="@string/condition_default"/>
+
+    <FrameLayout
+        android:id="@+id/loadingLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/loading_background"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        tools:visibility="visible">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:indeterminateTintMode="src_atop"
+            android:indeterminateTint="@color/white"/>
+
+    </FrameLayout>
+
+
+
+
+</LinearLayout>

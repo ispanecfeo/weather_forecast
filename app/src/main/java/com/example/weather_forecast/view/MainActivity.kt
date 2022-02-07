@@ -1,8 +1,8 @@
-package com.example.weather_forecast
+package com.example.weather_forecast.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.weather_forecast.ui.main.MainFragment
+import androidx.appcompat.app.AppCompatActivity
+import com.example.weather_forecast.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,5 +14,7 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.container, MainFragment.newInstance())
                 .commitNow()
         }
+
+
     }
 }
