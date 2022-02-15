@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
     android:orientation="vertical"
-    tools:context=".view.MainFragment">
+    tools:context=".view.details.DetailsFragment">
 
     <TextView
         android:layout_width="wrap_content"
@@ -21,13 +21,31 @@
         android:layout_weight="1"
         android:text="@string/start_city"/>
 
+    <TextView
+        android:id="@+id/cityCoordinates"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        tools:text="lt/ln: 55.755826, 37.617299900000035" />
+
+    <TextView
+        android:id="@+id/temperatureLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:textSize="@dimen/conditional_size"
+        android:text="@string/temperature_label"/>
+
 
     <TextView
         android:id="@+id/temperatureValue"
         android:layout_width="wrap_content"
         android:layout_height="7dp"
         android:layout_gravity="center"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:text="@string/degree_zero"
         android:textColor="@color/white"
         android:textSize="@dimen/degree_size"
@@ -39,9 +57,29 @@
         android:id="@+id/temperatureConditional"
         android:textColor="@color/white"
         android:layout_gravity="center"
-        android:layout_weight="4"
-        android:textSize="@dimen/conditional_size"
+        android:layout_weight="1"
+        android:textSize="@dimen/degree_feels_size"
         android:text="@string/condition_default"/>
+
+    <TextView
+        android:id="@+id/feelsLikeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/feels_like_label"
+        android:layout_gravity="center"
+        android:textSize="@dimen/conditional_size"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/feelsLikeValue"
+        android:layout_width="wrap_content"
+        android:layout_height="7dp"
+        android:layout_gravity="center"
+        android:layout_weight="2"
+        android:text="@string/degree_zero"
+        android:textColor="@color/white"
+        android:textSize="@dimen/degree_feels_size"
+        android:textStyle="bold" />
 
     <FrameLayout
         android:id="@+id/loadingLayout"
@@ -55,12 +93,11 @@
 
         <ProgressBar
             style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:indeterminate="true"
-            android:indeterminateTintMode="src_atop"
-            android:indeterminateTint="@color/white"/>
+            android:indeterminateTintMode="src_atop" />
 
     </FrameLayout>
 
