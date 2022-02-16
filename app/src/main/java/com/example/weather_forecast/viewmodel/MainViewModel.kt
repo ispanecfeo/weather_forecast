@@ -13,30 +13,22 @@ class MainViewModel(
 
     fun getLiveData() = liveDataToObserve
 
-    fun getWeatherFromLocalSource() = getDataFromLocalSource()
-    fun getWeatherFromRemoteSource() = getDataFromLocalSource()
+    fun getWeatherFromLocalSourceRus() = getDataFromLocalSource(true)
+    fun getWeatherFromLocalSourceWorld() = getDataFromLocalSource(false)
+    fun getWeatherFromRemoteSource() = getDataFromLocalSource(true)
 
-    private fun getDataFromLocalSource() {
+    private fun getDataFromLocalSource(isRussian:Boolean) {
         liveDataToObserve.value = AppState.Loading
         Thread{
-            sleep(2000)
-            val randNumber = (1..3).random()
-            when(randNumber) {
-                1 -> {
-                    liveDataToObserve.postValue(
-                        AppState.Success(repoImpl.getWeatherFromLocalStorage()))
-                }
-                2 -> {
-                    liveDataToObserve.postValue(
-                        AppState.Error(Exception("Ошибка связи с сервером"))
-                    )
-                }
-                3 -> {
-                    liveDataToObserve.postValue(
-                        AppState.Loading
-                    )
-                }
-            }
+            sleep(1000)
+            liveDataToObserve.postValue(
+                AppState.Success(
+                    if (isRussian)
+                        repoImpl.getWeatherFromLocalStorageRus()
+                    else
+                        repoImpl.getWeatherFromLocalStorageWorld()
+                )
+            )
         }.start()
     }
 

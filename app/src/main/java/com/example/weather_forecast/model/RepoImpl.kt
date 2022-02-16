@@ -5,7 +5,11 @@ class RepoImpl:Repo {
         return WeatherInfo()
     }
 
-    override fun getWeatherFromLocalStorage(): WeatherInfo {
-        return WeatherInfo()
+    override fun getWeatherFromLocalStorageRus(): List<WeatherInfo> {
+        return getRussianCities()
+    }
+
+    override fun getWeatherFromLocalStorageWorld(): List<WeatherInfo> {
+        return getWorldCities()
     }
 }
