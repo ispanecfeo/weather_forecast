@@ -28,25 +28,22 @@ class DetailsFragment : Fragment() {
         _binding = null
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (requireArguments().containsKey(BUNDLE_EXTRA)) {
-            val weatherInfo = arguments?.getParcelable<WeatherInfo>(BUNDLE_EXTRA)
-            if (weatherInfo != null) {
-
-                binding.cityName.text = weatherInfo.cityInfo.city
-                binding.cityCoordinates.text = String.format(
+        arguments?.getParcelable<WeatherInfo>(BUNDLE_EXTRA)?.let { weatherInfo ->
+            weatherInfo.cityInfo.also { cityInfo ->  
+                binding.cityName.text = cityInfo.city
+                binding.cityCoordinates.text = String().format(
                     getString(R.string.city_coordinates),
-                    weatherInfo.cityInfo.lat.toString(),
-                    weatherInfo.cityInfo.lon.toString()
+                    cityInfo.lat.toString(),
+                    cityInfo.lon.toString()
                 )
-                val degreeOfCelsius:String = getString(R.string.degree_of_celsius)
-                binding.temperatureValue.text = weatherInfo.temperature.toString() + degreeOfCelsius
-                binding.feelsLikeValue.text = weatherInfo.feelsLike.toString() + degreeOfCelsius
+                binding.temperatureValue.text = weatherInfo.temperature.toString().degreeOfCelsius()
+                binding.feelsLikeValue.text = weatherInfo.temperature.toString().degreeOfCelsius()
             }
         }
-
     }
 
     companion object{
@@ -58,5 +55,7 @@ class DetailsFragment : Fragment() {
             return fragment
         }
     }
+
+    private fun String.degreeOfCelsius() = this + getString(R.string.degree_of_celsius)
 
 }
