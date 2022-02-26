@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.weather_forecast.R
 import com.example.weather_forecast.model.WeatherInfo
 
+
 class MainFragmentAdapter(private var onItemViewClickListener:OnItemViewClickListener?) : RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>() {
 
     private var weatherData : List<WeatherInfo> = listOf()
@@ -32,9 +33,9 @@ class MainFragmentAdapter(private var onItemViewClickListener:OnItemViewClickLis
     inner class MainViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(weatherInfo: WeatherInfo) {
-            itemView.findViewById<TextView>(R.id.mainFragmentRecyclerItemTextView).text = weatherInfo.cityInfo.city
-            itemView.setOnClickListener {
-               onItemViewClickListener?.onItemViewClick(weatherInfo)
+            itemView.apply {
+                findViewById<TextView>(R.id.mainFragmentRecyclerItemTextView).text = weatherInfo.cityInfo.city
+                setOnClickListener { onItemViewClickListener?.onItemViewClick(weatherInfo) }
             }
         }
 
@@ -43,13 +44,6 @@ class MainFragmentAdapter(private var onItemViewClickListener:OnItemViewClickLis
     interface OnItemViewClickListener {
         fun onItemViewClick(weatherInfo: WeatherInfo)
     }
-
-    override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-        holder.bind(weatherData[position])
-    }
-
-    override fun getItemCount(): Int {
-        return weatherData.size
-    }
-
+    override fun onBindViewHolder(holder: MainViewHolder, position: Int) = holder.bind(weatherData[position])
+    override fun getItemCount() = weatherData.size
 }

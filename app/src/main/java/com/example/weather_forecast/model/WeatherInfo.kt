@@ -18,8 +18,7 @@ fun getDefaultCity() = CityInfo(
     lon = 37.617299900000035
 )
 
-fun getWorldCities(): List<WeatherInfo> {
-    return listOf(
+fun getWorldCities()= listOf(
         WeatherInfo(CityInfo("Лондон", 51.5085300, -0.1257400), 1, 2, "пасмурно"),
         WeatherInfo(CityInfo("Токио", 35.6895000, 139.6917100), 3, 4, "ветрено"),
         WeatherInfo(CityInfo("Париж", 48.8534100, 2.3488000), 5, 6),
@@ -30,11 +29,9 @@ fun getWorldCities(): List<WeatherInfo> {
         WeatherInfo(CityInfo("Вашингтон", 38.9071923, -77.03687070000001), 15, 16),
         WeatherInfo(CityInfo("Киев", 50.4501, 30.523400000000038), 17, 18),
         WeatherInfo(CityInfo("Пекин", 39.90419989999999, 116.40739630000007), 19, 20)
-    )
-}
+)
 
-fun getRussianCities(): List<WeatherInfo> {
-    return listOf(
+fun getRussianCities() = listOf(
         WeatherInfo(CityInfo("Москва", 55.755826, 37.617299900000035), 1, 2, "пасмурно"),
         WeatherInfo(CityInfo("Санкт-Петербург", 59.9342802, 30.335098600000038), 3, 3, "облачно"),
         WeatherInfo(CityInfo("Новосибирск", 55.00835259999999, 82.93573270000002), 5, 6, "снежно"),
@@ -45,5 +42,4 @@ fun getRussianCities(): List<WeatherInfo> {
         WeatherInfo(CityInfo("Омск", 54.9884804, 73.32423610000001), 15, 16),
         WeatherInfo(CityInfo("Ростов-на-Дону", 47.2357137, 39.701505), 17, 18),
         WeatherInfo(CityInfo("Уфа", 54.7387621, 55.972055400000045), 19, 20)
-    )
-}
+)
