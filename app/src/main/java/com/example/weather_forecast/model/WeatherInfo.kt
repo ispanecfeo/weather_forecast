@@ -8,7 +8,8 @@ data class WeatherInfo(
     val cityInfo: CityInfo = getDefaultCity(),
     val temperature:Int = 0,
     val feelsLike: Int = 0,
-    val condition: String = "ясно"
+    val condition: String = "ясно",
+    val icon : String = "bkn_n"
 ) : Parcelable
 
 
@@ -17,6 +18,24 @@ fun getDefaultCity() = CityInfo(
     lat = 55.755826,
     lon = 37.617299900000035
 )
+
+fun getCityByСoordinates(lat: Double, lon:Double) : CityInfo {
+
+    var weatherInfo:WeatherInfo? = getRussianCities().find {
+        it.cityInfo.lat == lat && it.cityInfo.lon == lon
+    }
+
+    if (weatherInfo == null) {
+        weatherInfo = getWorldCities().find {
+            it.cityInfo.lat == lat && it.cityInfo.lon == lon
+        }
+    }
+
+    return  weatherInfo?.let {
+        it.cityInfo
+    } ?: getDefaultCity()
+}
+
 
 fun getWorldCities()= listOf(
         WeatherInfo(CityInfo("Лондон", 51.5085300, -0.1257400), 1, 2, "пасмурно"),

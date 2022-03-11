@@ -1,5 +1,6 @@
 package com.example.weather_forecast.view
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,7 +33,7 @@ class MainFragmentAdapter(private var onItemViewClickListener:OnItemViewClickLis
 
     inner class MainViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(weatherInfo: WeatherInfo) {
+        fun bind(weatherInfo: WeatherInfo, position: Int) {
             itemView.apply {
                 findViewById<TextView>(R.id.mainFragmentRecyclerItemTextView).text = weatherInfo.cityInfo.city
                 setOnClickListener { onItemViewClickListener?.onItemViewClick(weatherInfo) }
@@ -44,6 +45,7 @@ class MainFragmentAdapter(private var onItemViewClickListener:OnItemViewClickLis
     interface OnItemViewClickListener {
         fun onItemViewClick(weatherInfo: WeatherInfo)
     }
-    override fun onBindViewHolder(holder: MainViewHolder, position: Int) = holder.bind(weatherData[position])
+    override fun onBindViewHolder(holder: MainViewHolder, position: Int) =
+        holder.bind(weatherData[position], position)
     override fun getItemCount() = weatherData.size
 }

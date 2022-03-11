@@ -13,14 +13,11 @@ import com.example.weather_forecast.view.details.DETAILS_INTENT_FILTER
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding:MainActivityBinding
-    private val mainReceiver = MainBroadcastReceiver()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = MainActivityBinding.inflate(layoutInflater)
-
-        registerReceiver(mainReceiver, IntentFilter(NETWORK_STATE_CHANGED_ACTION))
 
         val view = binding.root
         setContentView(view)
@@ -29,11 +26,5 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.container, MainFragment.newInstance())
                 .commitNow()
         }
-    }
-
-    override fun onDestroy() {
-
-        unregisterReceiver(mainReceiver)
-        super.onDestroy()
     }
 }

@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.weather_forecast.R
 import com.example.weather_forecast.databinding.FragmentMainBinding
 import com.example.weather_forecast.model.WeatherInfo
+import com.example.weather_forecast.utils.showSnackBar
 import com.example.weather_forecast.view.details.DetailsFragment
 import com.example.weather_forecast.viewmodel.AppState
 import com.example.weather_forecast.viewmodel.MainViewModel
@@ -19,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_main.*
 class MainFragment() : Fragment() {
     private var _binding:FragmentMainBinding? = null
     private val binding get() = _binding!!
-    private var isDataSetRus: Boolean = true
+    private var isDataSetRus: Boolean = false
 
     companion object {
         fun newInstance() = MainFragment()
@@ -34,7 +35,7 @@ class MainFragment() : Fragment() {
             activity?.supportFragmentManager?.apply {
                 beginTransaction()
                     .add(R.id.container, DetailsFragment.newInstance(Bundle().apply {
-                        putParcelable(DetailsFragment.BUNDLE_EXTRA,weatherInfo)
+                        putParcelable(DetailsFragment.BUNDLE_EXTRA, weatherInfo)
                     }))
                     .addToBackStack("")
                     .commitAllowingStateLoss()
@@ -103,15 +104,6 @@ class MainFragment() : Fragment() {
         super.onDestroyView()
         adapter.removeListener()
         _binding = null
-    }
-
-    private fun View.showSnackBar(
-        text:String,
-        actionText: String,
-        action:(View) -> Unit,
-        length:Int = Snackbar.LENGTH_INDEFINITE
-    ) {
-        Snackbar.make(this, text, length).setAction(actionText, action).show()
     }
 
     private fun Fragment.getStingByName(name : String) =

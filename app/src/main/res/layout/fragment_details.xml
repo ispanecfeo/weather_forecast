@@ -9,7 +9,14 @@
     android:background="@drawable/gradient_background"
     android:orientation="vertical"
     tools:context=".view.details.DetailsFragment">
+       
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_header_icon_height"
+        android:scaleType="fitXY"
+        android:id="@+id/header_icon" />
 
+    
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,16 +25,16 @@
         android:textStyle="bold"
         android:textColor="@color/white"
         android:layout_gravity="center"
-        android:layout_weight="1"
+        android:padding="@dimen/padding_elements"
         android:text="@string/start_city"/>
 
     <TextView
         android:id="@+id/cityCoordinates"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:textColor="@color/white"
         android:layout_gravity="center"
+        android:padding="@dimen/padding_elements"
         tools:text="lt/ln: 55.755826, 37.617299900000035" />
 
     <TextView
@@ -35,6 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white"
+        android:padding="@dimen/padding_elements"
         android:layout_gravity="center"
         android:textSize="@dimen/conditional_size"
         android:text="@string/temperature_label"/>
@@ -45,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="7dp"
         android:layout_gravity="center"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:text="@string/degree_zero"
         android:textColor="@color/white"
         android:textSize="@dimen/degree_size"
@@ -57,9 +65,17 @@
         android:id="@+id/temperatureConditional"
         android:textColor="@color/white"
         android:layout_gravity="center"
-        android:layout_weight="1"
+        android:padding="@dimen/padding_elements"
         android:textSize="@dimen/degree_feels_size"
         android:text="@string/condition_default"/>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:layout_width="@dimen/weather_icon_width"
+        android:layout_height="@dimen/weather_icon_height"
+        android:layout_gravity="center"
+        tools:srcCompat="@drawable/ic_bkn_d"
+        android:id="@+id/weatherIcon" />
+
 
     <TextView
         android:id="@+id/feelsLikeLabel"
@@ -67,6 +83,7 @@
         android:layout_height="wrap_content"
         android:text="@string/feels_like_label"
         android:layout_gravity="center"
+        android:padding="@dimen/padding_elements"
         android:textSize="@dimen/conditional_size"
         android:textColor="@color/white" />
 
@@ -75,7 +92,7 @@
         android:layout_width="wrap_content"
         android:layout_height="7dp"
         android:layout_gravity="center"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:text="@string/degree_zero"
         android:textColor="@color/white"
         android:textSize="@dimen/degree_feels_size"
@@ -88,7 +105,7 @@
         android:background="@color/loading_background"
         android:visibility="gone"
         android:layout_gravity="center"
-        android:layout_weight="1"
+
         tools:visibility="visible">
 
         <ProgressBar
@@ -100,8 +117,5 @@
             android:indeterminateTintMode="src_atop" />
 
     </FrameLayout>
-
-
-
 
 </LinearLayout>
