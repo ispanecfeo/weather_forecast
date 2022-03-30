@@ -2,34 +2,47 @@ package com.example.weather_forecast.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.weather_forecast.model.CityInfo
 import com.example.weather_forecast.model.Repo
 import com.example.weather_forecast.model.RepoImpl
-import java.lang.Thread.sleep
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
 
 class MainViewModel(
-    private val liveDataToObserve:MutableLiveData<AppState> = MutableLiveData(),
-    private val repoImpl:Repo = RepoImpl()
+    private val liveDataToObserve: MutableLiveData<AppState> = MutableLiveData(),
+    private val repoImpl: Repo = RepoImpl()
 ) : ViewModel() {
 
     fun getLiveData() = liveDataToObserve
 
-    fun getWeatherFromLocalSourceRus() = getDataFromLocalSource(true)
-    fun getWeatherFromLocalSourceWorld() = getDataFromLocalSource(false)
-    fun getWeatherFromRemoteSource() = getDataFromLocalSource(true)
+    fun getWeatherFromLocalSourceRus(fromRoom: Boolean) = getDataFromLocalSource(true, fromRoom)
+    fun getWeatherFromLocalSourceWorld(fromRoom: Boolean) = getDataFromLocalSource(false, fromRoom)
+    fun setCitiesIntoDB() = insertCitiesIntoDB()
 
-    private fun getDataFromLocalSource(isRussian:Boolean) {
-        liveDataToObserve.value = AppState.Loading
-        Thread{
-            sleep(1000)
+
+    private fun getDataFromLocalSource(isRussian: Boolean, fromRoom: Boolean) {
+
+        viewModelScope.launch(Dispatchers.IO) {
+
+            liveDataToObserve.postValue(AppState.Loading)
             liveDataToObserve.postValue(
                 AppState.Success(
-                    if (isRussian)
-                        repoImpl.getWeatherFromLocalStorageRus()
+                    if (fromRoom)
+                        repoImpl.getCitiesFromDb(if (isRussian) 1 else 0)
                     else
-                        repoImpl.getWeatherFromLocalStorageWorld()
+                        repoImpl.getCitiesFromMemory(if (isRussian) 1 else 0)
                 )
             )
-        }.start()
+
+        }
+    }
+
+    private fun insertCitiesIntoDB() {
+        viewModelScope.launch(Dispatchers.IO) {
+            repoImpl.insertCitiesToDb(repoImpl.getAllCitiesFromMemory())
+        }
     }
 
 }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="@dimen/city_item_margin"
+    android:background="?selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    app:cardCornerRadius="@dimen/cardViewRadius"
+    app:cardElevation="@dimen/cardViewElevation"
+    android:id="@+id/card_history_item">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/history_fragment_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/recycler_item_padding"
+            android:textSize="@dimen/recycler_item_text_size"
+            android:textStyle="bold"
+            android:background="@drawable/border"
+            tools:text="01.01.2022 17:00:00" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/history_fragment_temperature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/recycler_item_padding"
+            android:textSize="@dimen/recycler_item_text_size"
+            android:background="@drawable/border"
+            tools:text="10 0°C" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/history_fragment_options"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/recycler_item_padding"
+            android:textSize="@dimen/recycler_item_text_size"
+            android:background="@drawable/border"
+            tools:text="ясно" />
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

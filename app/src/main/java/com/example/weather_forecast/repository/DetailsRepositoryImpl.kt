@@ -1,5 +1,6 @@
 package com.example.weather_forecast.repository
 
+import com.example.weather_forecast.repository.remote.RemoteDataSource
 import retrofit2.Callback
 import ru.gb.kotlinapp.model.WeatherInfoDTO
 

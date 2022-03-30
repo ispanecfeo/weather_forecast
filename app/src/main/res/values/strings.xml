@@ -9,4 +9,11 @@
     <string name="error">Error</string>
     <string name="temperature_label">Температура</string>
     <string name="feels_like_label">Ощущается</string>
+    <string name="weather">Weather</string>
+    <string name="history">History</string>
+    <string name="settings">Settings</string>
+    <string name="only_warm">только выше 0°C</string>
+    <string name="uri_city_picture">https://freepngimg.com/thumb/city/36275–3-city-hd.png</string>
+    <string name="pattern_date">yyyy-MM-dd HH:mm:ss</string>
+    <string name="search_city">Фильтр по городу</string>
 </resources>
