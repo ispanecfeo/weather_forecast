@@ -11,14 +11,16 @@ import com.example.weather_forecast.databinding.MainActivityBinding
 import com.example.weather_forecast.view.config.ConfigurationFragment
 import com.example.weather_forecast.view.history.HistoryFragment
 import com.example.weather_forecast.view.main.MainFragment
+import com.yandex.mapkit.MapKitFactory
 
 
 class MainActivity : AppCompatActivity(), MainFragment.ListenerBottomNavigatorMenu {
     private lateinit var binding: MainActivityBinding
+    private val key = "2c08b69e-78b6-488e-bb65-4b7915eb58f7"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        MapKitFactory.setApiKey(key)
         binding = MainActivityBinding.inflate(layoutInflater)
 
         val view = binding.root
