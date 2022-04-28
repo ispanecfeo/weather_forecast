@@ -33,5 +33,9 @@
     <dimen name="history_fragment_margin">15dp</dimen>
     <dimen name="history_margin_recycler">5dp</dimen>
     <dimen name="history_space_height">15dp</dimen>
+    <dimen name="geo_btn_width">40dp</dimen>
+    <dimen name="size_0dp">0dp</dimen>
+    <dimen name="search_text_size">26sp</dimen>
+    <dimen name="search_btn_width">40dp</dimen>
 
 </resources>

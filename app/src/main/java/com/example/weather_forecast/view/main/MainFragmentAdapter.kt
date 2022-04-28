@@ -3,6 +3,7 @@ package com.example.weather_forecast.view.main
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weather_forecast.R
@@ -32,15 +33,19 @@ class MainFragmentAdapter(private var onItemViewClickListener: OnItemViewClickLi
     inner class MainViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(cityInfo: CityInfo, position: Int) {
-            itemView.apply {
-                findViewById<TextView>(R.id.mainFragmentRecyclerItemTextView).text = cityInfo.city
+            with(itemView.findViewById<TextView>(R.id.mainFragmentRecyclerItemTextView)) {
+                text = cityInfo.city
                 setOnClickListener { onItemViewClickListener?.onItemViewClick(cityInfo) }
+            }
+            itemView.findViewById<ImageView>(R.id.geo_btn).setOnClickListener() {
+                onItemViewClickListener?.onGeoButtonClick(cityInfo)
             }
         }
     }
 
     interface OnItemViewClickListener {
         fun onItemViewClick(cityInfo: CityInfo)
+        fun onGeoButtonClick(cityInfo: CityInfo)
     }
 
 

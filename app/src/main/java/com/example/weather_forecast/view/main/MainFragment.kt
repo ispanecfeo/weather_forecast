@@ -1,31 +1,37 @@
 package com.example.weather_forecast.view.main
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.weather_forecast.R
 import com.example.weather_forecast.databinding.FragmentMainBinding
 import com.example.weather_forecast.model.CityInfo
-import com.example.weather_forecast.model.WeatherInfo
 import com.example.weather_forecast.utils.showSnackBar
 import com.example.weather_forecast.view.details.DetailsFragment
+import com.example.weather_forecast.view.map.MapFragment
 import com.example.weather_forecast.viewmodel.AppState
 import com.example.weather_forecast.viewmodel.MainViewModel
 import com.example.weather_forecast.viewmodel.MainViewModelFactory
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_main.*
+
 
 private const val FIRST_OPEN = "first_open"
+private const val REQUEST_CODE = 12345
 
 class MainFragment() : Fragment() {
     private var _binding:FragmentMainBinding? = null
     private val binding get() = _binding!!
     private var isDataSetRus: Boolean = true
+    private var lat: Double = 0.0
+    private var lon: Double = 0.0
 
     interface ListenerBottomNavigatorMenu {
         fun onCloseMenu()
@@ -53,7 +59,117 @@ class MainFragment() : Fragment() {
                     .commitAllowingStateLoss()
              }
         }
+
+        override fun onGeoButtonClick(cityInfo: CityInfo) {
+            lat = cityInfo.lat
+            lon = cityInfo.lon
+            checkPermission()
+        }
     })
+
+    private fun checkPermission() {
+        activity?.let {
+            when {
+                ContextCompat.checkSelfPermission(it, Manifest.permission.ACCESS_FINE_LOCATION) ==
+                        PackageManager.PERMISSION_GRANTED -> {
+                    openMapFragment()
+                }
+
+                shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
+                    showRationaleDialog()
+                }
+                else -> {
+                    requestPermission()
+                }
+            }
+        }
+    }
+
+    private fun openMapFragment() {
+        activity?.supportFragmentManager?.apply {
+            beginTransaction()
+                .add(
+                    R.id.container,
+                    MapFragment.newInstance(Bundle().apply {
+                        putDouble(MapFragment.BUNDLE_LAT, lat)
+                        putDouble(MapFragment.BUNDLE_LON, lon)
+                    })
+                )
+                .addToBackStack("")
+                .commit()
+        }
+    }
+
+    private fun showRationaleDialog() {
+        activity?.let {
+            AlertDialog.Builder(it)
+                .setTitle(getString(R.string.dialog_rationale_title))
+                .setMessage(getString(R.string.dialog_rationale_meaasge))
+                .setPositiveButton(getString(R.string.dialog_rationale_give_access)) { _, _ ->
+                    requestPermission()
+                }
+                .setNegativeButton(getString(R.string.dialog_rationale_decline)) { dialog, _ -> dialog.dismiss() }
+                .create()
+                .show()
+        }
+    }
+
+    private fun checkPermissionsResult(requestCode: Int, grantResults: IntArray) {
+        when (requestCode) {
+            REQUEST_CODE -> {
+                var grantedPermissions = 0
+
+                if ((grantResults.isNotEmpty())) {
+                    for (i in grantResults) {
+                        if (i == PackageManager.PERMISSION_GRANTED) {
+                            grantedPermissions++
+                        }
+
+                        if (grantResults.size == grantedPermissions) {
+                            openMapFragment()
+                        } else {
+                            showDialog(
+                                getString(R.string.dialog_title_no_gps),
+                                getString(R.string.dialog_message_no_gps)
+                            )
+                        }
+                    }
+                } else {
+                    showDialog(
+                        getString(R.string.dialog_title_no_gps),
+                        getString(R.string.dialog_message_no_gps)
+                    )
+                }
+
+                return
+            }
+        }
+    }
+
+    private fun showDialog(title: String, message: String) {
+        activity?.let {
+            AlertDialog.Builder(it)
+                .setTitle(title)
+                .setMessage(message)
+                .setNegativeButton(getString(R.string.dialog_button_close)) { dialog, _ -> dialog.dismiss() }
+                .create()
+                .show()
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>, grantResults: IntArray
+    ) {
+        checkPermissionsResult(requestCode, grantResults)
+    }
+
+    private fun requestPermission() {
+        requestPermissions(
+            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+            REQUEST_CODE
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -88,7 +204,7 @@ class MainFragment() : Fragment() {
 
                 viewModel.setCitiesIntoDB()
 
-                it.getPreferences(Context.MODE_PRIVATE).edit().putBoolean(FIRST_OPEN, false).commit()
+                it.getPreferences(Context.MODE_PRIVATE).edit().putBoolean(FIRST_OPEN, false).apply()
 
                 if (isRussian)
                     viewModel.getWeatherFromLocalSourceRus(false)
