@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "158097147473",
+    "project_id": "weather-broadcast-346621",
+    "storage_bucket": "weather-broadcast-346621.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:158097147473:android:5ca3ecbee96d29979fda70",
+        "android_client_info": {
+          "package_name": "com.example.discoures"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "158097147473-o32bj708oidga3dj68l7k51nc74p0j4t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAlTG9v-pUtt7d4I4kg8Y5R6SgKovktO0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "158097147473-o32bj708oidga3dj68l7k51nc74p0j4t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:158097147473:android:35549dc357ad8f2b9fda70",
+        "android_client_info": {
+          "package_name": "com.example.weather_forecast"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "158097147473-o32bj708oidga3dj68l7k51nc74p0j4t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAlTG9v-pUtt7d4I4kg8Y5R6SgKovktO0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "158097147473-o32bj708oidga3dj68l7k51nc74p0j4t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
