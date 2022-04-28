@@ -1,5 +1,6 @@
 package com.example.weather_forecast.view.details
 
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -11,7 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import coil.api.load
 import com.example.weather_forecast.R
 import com.example.weather_forecast.databinding.FragmentDetailsBinding
+import com.example.weather_forecast.model.CityInfo
 import com.example.weather_forecast.model.WeatherInfo
+import com.example.weather_forecast.model.getDefaultCity
 import com.example.weather_forecast.utils.showSnackBar
 import com.example.weather_forecast.viewmodel.AppState
 import com.example.weather_forecast.viewmodel.DetailsViewModel
@@ -27,16 +30,12 @@ const val DETAILS_URL_MALFORMED_EXTRA = "URL MALFORMED"
 const val DETAILS_RESPONSE_SUCCESS_EXTRA = "RESPONSE SUCCESS"
 const val DETAILS_FACT_EXTRA = "DETAILS FACT EXTRA"
 const val DETAILS_INTENT_EMPTY_EXTRA = "INTENT IS EMPTY"
-const val DETAILS_DATA_EMPTY_EXTRA = "DATA IS EMPTY"
-private const val TEMP_INVALID = -100
-private const val FEELS_LIKE_INVALID = -100
-private const val PROCESS_ERROR = "Обработка ошибки"
 
 class DetailsFragment : Fragment() {
 
     private var _binding:FragmentDetailsBinding? = null
     private val binding get() = _binding!!
-    private lateinit var weatherBundle: WeatherInfo
+    private lateinit var cityBundle: CityInfo
 
     private val detailsViewModel : DetailsViewModel by lazy {
         ViewModelProvider(this).get(DetailsViewModel::class.java)
@@ -60,7 +59,7 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        weatherBundle = arguments?.getParcelable<WeatherInfo>(BUNDLE_EXTRA) ?: WeatherInfo()
+         cityBundle = arguments?.getParcelable<CityInfo>(BUNDLE_EXTRA) ?: getDefaultCity()
 
         detailsViewModel
             .detailsLiveData
@@ -75,6 +74,8 @@ class DetailsFragment : Fragment() {
             main.visibility = View.VISIBLE
             loadingLayout.visibility = View.GONE
 
+            detailsViewModel.addHistoryRow(weather)
+
             val cityInfo = weather.cityInfo
 
             cityName.text = cityInfo.city
@@ -87,7 +88,7 @@ class DetailsFragment : Fragment() {
             temperatureConditional.text = weather.condition
             temperatureValue.text = weather.temperature.toString().degreeOfCelsius()
             feelsLikeValue.text = weather.feelsLike.toString().degreeOfCelsius()
-            headerIcon.load("https://freepngimg.com/thumb/city/36275-3-city-hd.png")
+            headerIcon.load(getString(R.string.uri_city_picture))
 
             GlideToVectorYou.justLoadImage(
                 activity,
@@ -125,13 +126,13 @@ class DetailsFragment : Fragment() {
     fun requestWeather() {
 
         detailsViewModel.getWeatherFromRemoteSource(
-            weatherBundle.cityInfo.lat,
-            weatherBundle.cityInfo.lon
+            cityBundle.lat,
+            cityBundle.lon
         )
     }
 
     companion object{
-        const val BUNDLE_EXTRA = "weather"
+        const val BUNDLE_EXTRA = "city"
         fun newInstance(bundle: Bundle): DetailsFragment {
             val fragment = DetailsFragment()
             fragment.arguments = bundle

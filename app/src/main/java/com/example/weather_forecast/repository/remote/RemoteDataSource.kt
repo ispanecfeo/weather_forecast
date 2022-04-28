@@ -1,6 +1,7 @@
-package com.example.weather_forecast.repository
+package com.example.weather_forecast.repository.remote
 
 import com.example.weather_forecast.BuildConfig
+import com.example.weather_forecast.repository.api.WeatherAPI
 import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

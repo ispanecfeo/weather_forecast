@@ -17,6 +17,21 @@
     <dimen name="padding_elements">5dp</dimen>
     <dimen name="city_item_margin">3dp</dimen>
     <dimen name="cardViewRadius">25dp</dimen>
+    <dimen name="cardViewHistory">10dp</dimen>
     <dimen name="cardViewElevation">15dp</dimen>
+    <dimen name="cardViewElevationHistory">10dp</dimen>
+    <dimen name="bottom_navigation_height">54dp</dimen>
+    <dimen name="main_frame_height">0dp</dimen>
+    <dimen name="only_warm_size">24sp</dimen>
+    <dimen name="only_warm_margin">10dp</dimen>
+    <dimen name="margin_5dp">5dp</dimen>
+    <dimen name="history_item_margin">10dp</dimen>
+    <dimen name="history_item_city_text_size">36sp</dimen>
+    <dimen name="history_item_data_text_size">24sp</dimen>
+    <dimen name="recycler_history_margin">5dp</dimen>
+    <dimen name="history_card_margin">10dp</dimen>
+    <dimen name="history_fragment_margin">15dp</dimen>
+    <dimen name="history_margin_recycler">5dp</dimen>
+    <dimen name="history_space_height">15dp</dimen>
 
 </resources>

@@ -2,10 +2,18 @@ package com.example.weather_forecast.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.weather_forecast.model.Repo
+import com.example.weather_forecast.model.RepoImpl
+import com.example.weather_forecast.model.WeatherInfo
 import com.example.weather_forecast.repository.DetailsRepository
 import com.example.weather_forecast.repository.DetailsRepositoryImpl
-import com.example.weather_forecast.repository.RemoteDataSource
+import com.example.weather_forecast.repository.local.RoomRepo
+import com.example.weather_forecast.repository.local.RoomRepoImpl
+import com.example.weather_forecast.repository.remote.RemoteDataSource
 import com.example.weather_forecast.utils.convertDTOToModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,7 +25,8 @@ private const val CORRUPTED_DATA = "Неполные данные"
 
 class DetailsViewModel(
     val detailsLiveData: MutableLiveData<AppState> = MutableLiveData(),
-    private val detailsRepoImpl : DetailsRepository = DetailsRepositoryImpl(RemoteDataSource())
+    private val detailsRepoImpl : DetailsRepository = DetailsRepositoryImpl(RemoteDataSource()),
+    private val roomRepoImpl : RoomRepo = RoomRepoImpl()
 ) : ViewModel() {
 
     private val callback = object : Callback<WeatherInfoDTO> {
@@ -44,7 +53,10 @@ class DetailsViewModel(
                 )
             )
         }
+    }
 
+    fun addHistoryRow(weatherInfo: WeatherInfo) {
+        addWeatherEntity(weatherInfo)
     }
 
     private fun checkResponse(serverResponse: WeatherInfoDTO, lat: Double, lon: Double): AppState {
@@ -74,5 +86,12 @@ class DetailsViewModel(
         detailsLiveData.postValue(AppState.Loading)
         detailsRepoImpl.getWeatherInfo(lat, lon, callback)
     }
+
+    private fun addWeatherEntity(weatherInfo: WeatherInfo) {
+        viewModelScope.launch(Dispatchers.IO) {
+            roomRepoImpl.insertHistoryWeather(weatherInfo)
+        }
+    }
+
 
 }

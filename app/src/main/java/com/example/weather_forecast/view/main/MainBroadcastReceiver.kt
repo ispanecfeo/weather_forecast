@@ -1,4 +1,4 @@
-package com.example.weather_forecast.view
+package com.example.weather_forecast.view.main
 
 import android.content.BroadcastReceiver
 import android.content.Context
